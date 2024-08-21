@@ -6,12 +6,42 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to {{Name}}({{Abbreviation}})</h1>
-    <h3>Location: {{Location}}</h3><br>
-    <h3>Notable Students:</h3><br>
+    <h4 style="text-align: center;"><i>Article written on {{Publish_Date | date:"D, d/M/Y"}},({{Publish_Date | time:"H:i"}}). Edited on {{Edit_Date | date:"D, d/M/Y"}},({{Edit_Date | time:"H:i"}}).Document Size - {{56789|filesizeformat}}</i></h4>
+    <!-- <h4 style="text-align: center;"><i>Document Serial: {{"<<>>&"|escape}}</i></h4> -->
+    <h6 style="text-align: center;"><i>Document editted {{Publish_Date | timesince:Edit_Date}} ago</i></h4>
+    <h1 style="text-align: center;">Welcome to {{Name}}({{Abbreviation}})({{Name | slugify}})</h1>
+    <h3 style="text-align: center;">Location: {{Location}}</h3><br>
+    <h3 style="text-align: center;">(In short, {{Location | truncatechars:9}})</h3><br>
+    <h3>Number of Notable Students: {{Students|length}}</h3>
+    <p>{{"They are CALTECH's pride" | addslashes}}</p>
+    <p>{{"they are CALTECH's assets" | capfirst}}</p>
+    <p>They are {{"C A L T E C H"|cut:" "}}'s future</p>
+    <h2 style="text-align: center;">{{"Turn your life around by studying in one of the top 10 universities of the world"|title}}</h2>
+    <h2 style="text-align: center;">In short, {{"Turn your life around by studying in one of the top 10 universities of the world"|truncatewords:4}}</h2>
+    <h3 style="text-align: center;">"{{"Notable Students" | center:"50"}}"</h3><br>
+    <hr>
+    <h4>List of students following lexicographical order based on their names: </h4>
+    <h4>{{Students | dictsort:"Name"}}</h4>
+    <hr>
+    <h4>{{Students | join:" // "}}</h4>
+    <h4>Number of students(False for Odd, True for Even): {{5 | divisibleby:"2"}}</h4>
+    <h4>Highest : {{Students|first}}</h4>
+    <h4>Lowest : {{Students|last}}</h4>
+    <hr>
     {% for i in Students %}
+    <h4>Roll: {{i.Id | add:"1"}}</h4>
     <h4>Name: {{i.Name}}</h4>
+    <h4>In Block Letters: {{i.Name | upper}}</h4>
+    <h4>In Small Letters: {{i.Name | lower}}</h4>
+    <h4>In Characters: {{i.Name | make_list}}</h4>
+    <h4>Number of Words in Name: {{i.Name | wordcount}}</h4>
+    <h4>Number of Letters in Name: {{i.Name | length}}</h4>
     <h4>Department: {{i.Department}}</h4>
+    <h4>Club: {{i.Club | default:"N/A"}}</h4>
+    <hr>
     {% endfor %}
+    <h4>List of students excluding the first: {{Students | slice:"1:"}}</h4>
+    <h4>A random student from the above list will be shown as follows as the page is refreshed</h4>
+    <h4>{{Students | random}}</h4>
 </body>
 </html>
